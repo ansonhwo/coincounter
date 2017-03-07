@@ -47,8 +47,8 @@ body {
 
 #counter .segment input {
   display: block;
-  transform: translate(50%, 60%);
-  width: 32px;
+  transform: translate(0, 50%);
+  width: 60px;
   border: none;
   background-color: #d8d8d8;
   text-align: center;
@@ -70,8 +70,4 @@ body {
 
 #counter input {
   text-align: right;
-}
-
-#counter .test {
-
 }
