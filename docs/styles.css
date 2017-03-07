@@ -7,8 +7,8 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 400px;
-  height: 550px;
+  width: 450px;
+  height: 650px;
   min-width: 400px;
   padding: 50px;
   transform: translate(-50%, -50%);
@@ -31,8 +31,8 @@ body {
   display: inline-block;
   margin-top: 0;
   margin-bottom: 0;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border: none;
   background-color: #d8d8d8;
 }
@@ -47,11 +47,10 @@ body {
 
 #counter .segment input {
   display: block;
-  transform: translate(50%, 50%);
-  width: 22px;
-  border: 2px hidden;
+  transform: translate(50%, 60%);
+  width: 32px;
+  border: none;
   background-color: #d8d8d8;
-  font-size: 12pt;
   text-align: center;
 }
 
@@ -62,6 +61,11 @@ body {
 #counter .calculate,
 #counter .input {
   margin-top: 20px;
+}
+
+#counter input,
+#counter button {
+  font-size: 18pt;
 }
 
 #counter input {
