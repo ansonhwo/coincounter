@@ -13,7 +13,6 @@ const counter = {
     this.coins = document.querySelectorAll('#counter .segment')
     this.labels = document.querySelectorAll('#counter .segment .label')
     this.form = document.querySelector('#counter form')
-    this.submit = document.querySelector('#counter .calculate')
   },
 
   // Calculate smallest coin denomination distribution
@@ -49,7 +48,7 @@ const counter = {
 
   // Grab coin denomination user inputs from view layer
   getFormData: function() {
-    const formData = new FormData(counter.form)
+    const formData = new FormData(this.form)
     const total = parseInt(formData.get('total'))
     const denominations = []
 
@@ -90,7 +89,7 @@ counter.init()
 /********************
 * Event Listeners
 *********************/
-document.addEventListener('submit', event => {
+counter.form.addEventListener('submit', event => {
   event.preventDefault()
   counter.startCalculate()
 })
