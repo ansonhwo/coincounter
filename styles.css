@@ -16,9 +16,8 @@ body {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  width: 450px;
-  min-width: 450px;
-  height: 650px;
+  width: 600px;
+  height: 680px;
   padding: 50px 70px;
   background-color: #fff;
   border: 1px solid #dededf;
@@ -29,18 +28,21 @@ body {
   font-size: 22pt;
 }
 
+#counter .grid {
+  width: 80%;
+  margin: auto;
+}
+
 #counter .row {
-  position: relative;
   padding: 20px 10px;
   text-align: center;
 }
 
 #counter .segment {
   display: inline-block;
-  margin-top: 0;
-  margin-bottom: 0;
   width: 120px;
   height: 120px;
+  margin: auto;
   border: none;
   background-color: #d8d8d8;
 }
@@ -74,4 +76,41 @@ body {
 
 #counter input {
   text-align: right;
+}
+
+@media screen and (max-device-width: 900px) {
+  #counter {
+    width: 500px;
+    padding: 60px 80px;
+  }
+
+  #counter .grid {
+    width: 325px;
+  }
+}
+
+@media screen and (max-device-width: 480px), screen and (max-device-height: 580px)  {
+  #counter {
+    transform: translate(-54%, -50%);
+    width: 400px;
+    height: 500px;
+    padding: 20px 30px;
+  }
+
+  #counter .title {
+    margin-bottom: 10px;
+  }
+
+  #counter .grid {
+    width: 260px;
+  }
+
+  #counter .row {
+    padding: 5px 0;
+  }
+
+  #counter .calculate,
+  #counter .input {
+    margin-top: 10px;
+  }
 }
