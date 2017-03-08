@@ -1,5 +1,9 @@
+/********************
+* DOM Related Objects
+*********************/
 const counter = {
 
+  // Initializations
   init: function() {
     this.cacheDOM()
   },
@@ -13,28 +17,7 @@ const counter = {
   },
 
   // Calculate smallest coin denomination distribution
-  calculate: function() {
-    const denominations = []
-    const formData = new FormData(this.form)
-    let total = parseInt(formData.get('total'))
-
-    // Reset labels
-    for (let label = 0; label < this.labels.length; label++) {
-      this.labels[label].classList.remove('active')
-      this.labels[label].classList.add('hidden')
-    }
-
-    // Associate denominations with their parent elements
-    for (let coin = 0; coin < this.coins.length; coin++) {
-      denominations.push(
-        {
-          amount: 0,
-          denom: parseInt(formData.get(`${coin}`)),
-          elem: this.coins[coin]
-        }
-      )
-    }
-
+  calculate: function({ denominations, total }) {
     // Sort denominations by amount descending
     denominations.sort((coin1, coin2) => coin1.denom < coin2.denom ? 1 : -1)
 
@@ -62,18 +45,52 @@ const counter = {
         label.classList.add('active')
       }
     })
+  },
+
+  // Grab coin denomination user inputs from view layer
+  getFormData: function() {
+    const formData = new FormData(counter.form)
+    const total = parseInt(formData.get('total'))
+    const denominations = []
+
+    for (let coin = 0; coin < this.coins.length; coin++) {
+      denominations.push(
+        {
+          amount: 0,
+          denom: parseInt(formData.get(`${coin}`)),
+          elem: this.coins[coin]
+        }
+      )
+    }
+
+    return { denominations, total }
+  },
+
+  // Reset display labels
+  resetLabels: function() {
+    for (let label = 0; label < this.labels.length; label++) {
+      this.labels[label].classList.remove('active')
+      this.labels[label].classList.add('hidden')
+    }
+  },
+
+  // Get coin denominations and begin calculation
+  startCalculate: function() {
+    this.resetLabels()
+    this.calculate(this.getFormData())
   }
 
 }
 
+/********************
+* Initializations
+*********************/
 counter.init()
 
+/********************
+* Event Listeners
+*********************/
 document.addEventListener('submit', event => {
   event.preventDefault()
-  counter.calculate()
-})
-
-counter.submit.addEventListener('touchstart', event => {
-  event.preventDefault()
-  counter.calculate()
+  counter.startCalculate()
 })
