@@ -68,7 +68,12 @@ const counter = {
 
 counter.init()
 
-counter.form.addEventListener('submit', event => {
+document.addEventListener('submit', event => {
+  event.preventDefault()
+  counter.calculate()
+})
+
+counter.submit.addEventListener('touchstart', event => {
   event.preventDefault()
   counter.calculate()
 })
