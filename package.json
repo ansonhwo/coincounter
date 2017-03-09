@@ -1,0 +1,23 @@
+{
+  "name": "coincounter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "bundle": "browserify main.js test.js > index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ansonhwo/coincounter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ansonhwo/coincounter/issues"
+  },
+  "homepage": "https://github.com/ansonhwo/coincounter#readme",
+  "devDependencies": {
+    "browserify": "^14.1.0"
+  }
+}

@@ -16,9 +16,9 @@ body {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  width: 600px;
-  height: 680px;
-  padding: 50px 70px;
+  width: 500px;
+  height: 620px;
+  padding: 40px 60px;
   background-color: #fff;
   border: 1px solid #dededf;
 }
@@ -34,7 +34,6 @@ body {
 }
 
 #counter .row {
-  padding: 20px 10px;
   text-align: center;
 }
 
@@ -78,20 +77,19 @@ body {
   text-align: right;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (min-width: 1300px) {
   #counter {
-    width: 500px;
-    padding: 60px 80px;
+    width: 650px;
+    height: 650px;
   }
 
-  #counter .grid {
-    width: 325px;
+  #counter .row {
+    padding: 20px 20px;
   }
 }
 
-@media screen and (max-width: 520px), screen and (max-height: 720px)  {
+@media screen and (max-width: 780px), screen and (max-height: 800px)  {
   #counter {
-    transform: translate(-54%, -50%);
     width: 400px;
     height: 500px;
     padding: 20px 30px;
@@ -113,4 +111,14 @@ body {
   #counter .input {
     margin-top: 10px;
   }
+}
+
+@media screen and (max-width: 400px) {
+  #counter {
+    transform: translate(-55%, -50%);
+  }
+}
+
+#mocha-report {
+  width: 350px;
 }

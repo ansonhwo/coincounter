@@ -1,82 +1,90 @@
 /********************
 * DOM Related Objects
 *********************/
-const counter = {
+const coinCounter = () => {
 
-  // Initializations
-  init: function() {
-    this.cacheDOM()
-  },
+  // DOM Element References
+  const coins = document.querySelectorAll('#counter .segment')
+  const labels = document.querySelectorAll('#counter .segment .label')
+  const form = document.querySelector('#counter form')
 
-  // Cache DOM elements for future reference
-  cacheDOM: function() {
-    this.coins = document.querySelectorAll('#counter .segment')
-    this.labels = document.querySelectorAll('#counter .segment .label')
-    this.form = document.querySelector('#counter form')
-  },
+  return {
+    // Calculate smallest coin denomination distribution
+    calculate: function({ denominations, total }) {
+      // If a 1 coin doesn't exist, do nothing
+      if (!denominations.filter(coin => coin.denom === 1).length) return []
 
-  // Calculate smallest coin denomination distribution
-  calculate: function({ denominations, total }) {
-    // Sort denominations by amount descending
-    denominations.sort((coin1, coin2) => coin1.denom < coin2.denom ? 1 : -1)
+      // Sort denominations by amount descending
+      denominations.sort((coin1, coin2) => coin1.denom < coin2.denom ? 1 : -1)
 
-    // Find smallest coin denomination distribution
-    // Assumption: A 1 coin will always exist
-    while (total > 0) {
-      for (let coin = 0; coin < denominations.length; coin++) {
-        let denom = denominations[coin].denom
+      // Find smallest coin denomination distribution
+      while (total > 0) {
+        for (let coin = 0; coin < denominations.length; coin++) {
+          let denom = denominations[coin].denom
 
-        if (denom <= total) {
-          denominations[coin].amount++
-          total -= denom
-          break
+          if (denom <= total) {
+            denominations[coin].amount++
+            total -= denom
+            break
+          }
         }
       }
-    }
+
+      return denominations
+    },
+
+    // Get reference to DOM elements associated with counter
+    getDOMElements: function() {
+      return { coins, labels, form }
+    },
+
+    // Grab coin denomination user inputs from view layer
+    getFormData: function(coins, formData) {
+      const total = parseInt(formData.get('total'))
+      const denominations = []
+
+      for (let coin = 0; coin < coins.length; coin++) {
+        denominations.push(
+          {
+            amount: 0,
+            denom: parseInt(formData.get(`${coin}`)),
+            elem: coins[coin]
+          }
+        )
+      }
+
+      return { denominations, total }
+    },
+
+    // Reset display labels
+    resetLabels: function(labels) {
+      for (let label = 0; label < labels.length; label++) {
+        labels[label].classList.remove('active')
+        labels[label].classList.add('hidden')
+      }
+    },
+
+    // Get coin denominations and begin calculation
+    startCalculate: function() {
+      const formData = new FormData(form)
+      this.resetLabels(labels)
+      this.updateLabels(this.calculate(this.getFormData(coins, formData)))
+    },
 
     // Update view to show denomination distribution
-    denominations.forEach((coin, index) => {
-      if (coin.amount > 0) {
-        let label = coin.elem.querySelector('.label')
+    updateLabels: function(denominations) {
+      if (denominations.length) {
+        denominations.forEach((coin, index) => {
+          if (coin.amount > 0) {
+            let label = coin.elem.querySelector('.label')
 
-        label.textContent = coin.amount
-        label.classList.remove('hidden')
-        label.classList.add('active')
+            label.textContent = coin.amount
+            label.classList.remove('hidden')
+            label.classList.add('active')
+          }
+        })
       }
-    })
-  },
-
-  // Grab coin denomination user inputs from view layer
-  getFormData: function() {
-    const formData = new FormData(this.form)
-    const total = parseInt(formData.get('total'))
-    const denominations = []
-
-    for (let coin = 0; coin < this.coins.length; coin++) {
-      denominations.push(
-        {
-          amount: 0,
-          denom: parseInt(formData.get(`${coin}`)),
-          elem: this.coins[coin]
-        }
-      )
     }
-
-    return { denominations, total }
-  },
-
-  // Reset display labels
-  resetLabels: function() {
-    for (let label = 0; label < this.labels.length; label++) {
-      this.labels[label].classList.remove('active')
-      this.labels[label].classList.add('hidden')
-    }
-  },
-
-  // Get coin denominations and begin calculation
-  startCalculate: function() {
-    this.resetLabels()
-    this.calculate(this.getFormData())
   }
 
 }
@@ -84,12 +92,18 @@ const counter = {
 /********************
 * Initializations
 *********************/
-counter.init()
+const counter = coinCounter()
 
 /********************
 * Event Listeners
 *********************/
-counter.form.addEventListener('submit', event => {
+const { form } = counter.getDOMElements()
+form.addEventListener('submit', event => {
   event.preventDefault()
   counter.startCalculate()
 })
+
+/********************
+* Exports
+*********************/
+module.exports = counter

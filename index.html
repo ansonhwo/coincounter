@@ -2,8 +2,9 @@
 <html>
   <head>
     <title>Coin Counter</title>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=0.8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
   </head>
@@ -13,34 +14,37 @@
       <form class="denominations" onsubmit>
         <div class="ui two column grid">
           <div class="row">
-            <div class="ui left floated circular raised segment one column" data-elem="1">
+            <div class="ui left floated circular raised segment column">
               <div class="ui floating circular blue huge label hidden"></div>
               <input type="text" name="0" maxlength="2" value="25" pattern="^[1-9][0-9]?$" inputmode="numeric" title="Only positive whole numbers from 1-99 are allowed." required>
             </div>
-            <div class="ui right floated circular raised segment two column" data-elem="2">
+            <div class="ui right floated circular raised segment column">
               <div class="ui floating circular blue huge label hidden"></div>
               <input type="text" name="1" maxlength="2" value="10" pattern="^[1-9][0-9]?$" inputmode="numeric" title="Only positive whole numbers from 1-99 are allowed." required>
             </div>
           </div>
           <div class="row">
-            <span class="ui left floated circular raised segment one column" data-elem="3">
+            <span class="ui left floated circular raised segment column">
               <div class="ui floating circular blue huge label hidden"></div>
               <input type="text" name="2" maxlength="2" value="5" pattern="^[1-9][0-9]?$" inputmode="numeric" title="Only positive whole numbers from 1-99 are allowed." required>
             </span>
-            <span class="ui right floated circular raised segment two column" data-elem="4">
+            <span class="ui right floated circular raised segment column">
               <div class="ui floating circular blue huge label hidden"></div>
               <input type="text" name="3" maxlength="2" value="1" pattern="^[1-9][0-9]?$" inputmode="numeric" title="Only positive whole numbers from 1-99 are allowed." required>
             </span>
           </div>
         </div>
         <div class="ui fluid input">
-          <input type="text" name="total" pattern="\d*" min="1" inputmode="numeric" title="Only whole numbers greater than or equal to 0 are allowed." required>
+          <input type="text" name="total" pattern="^([0-9]|[1-9]\d*)$" min="1" inputmode="numeric" title="Only whole numbers greater than or equal to 0 are allowed." required>
         </div>
         <div class="calculate">
           <button class="ui blue fluid button" type="submit">Calculate</button>
         </div>
       </form>
     </div>
-    <script src="main.js"></script>
+    <div id="mocha"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.min.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
