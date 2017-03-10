@@ -29,7 +29,6 @@ body {
 }
 
 #counter .grid {
-  width: 80%;
   margin: auto;
 }
 
@@ -110,6 +109,37 @@ body {
   #counter .calculate,
   #counter .input {
     margin-top: 10px;
+  }
+}
+
+@media screen and (max-height: 580px) {
+  #counter {
+    width: 300px;
+    height: 410px;
+    padding: 10px 20px;
+  }
+
+  #counter .input {
+    height: 40px;
+  }
+
+  #counter .segment {
+    width: 100px;
+    height: 100px;
+  }
+
+  #counter .segment input {
+    transform: translate(10%, 40%);
+  }
+
+  #counter .title {
+    font-size: 18pt;
+  }
+
+  #counter input,
+  #counter button,
+  #counter .segment .label {
+    font-size: 14pt;
   }
 }
 
