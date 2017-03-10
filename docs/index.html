@@ -9,7 +9,8 @@
     <link href="styles.css" rel="stylesheet">
   </head>
   <body>
-    <div id="counter" class="ui container">
+    <button id="tests" class="ui toggle basic blue button">Tests</button>
+    <div id="counter" class="ui container active">
       <p class="title">COIN COUNTER</p>
       <form class="denominations" onsubmit>
         <div class="ui two column grid">
@@ -42,7 +43,7 @@
         </div>
       </form>
     </div>
-    <div id="mocha"></div>
+    <div id="mocha" class="hidden"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.min.js"></script>
     <script src="index.js"></script>

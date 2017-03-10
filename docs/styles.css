@@ -4,11 +4,11 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .active {
-  display: block;
+  display: block !important;
 }
 
 #counter {
@@ -149,6 +149,6 @@ body {
   }
 }
 
-#mocha-report {
-  width: 350px;
+#mocha-stats {
+  top: 25px;
 }

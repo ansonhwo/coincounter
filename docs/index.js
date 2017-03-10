@@ -104,6 +104,29 @@ form.addEventListener('submit', event => {
   counter.startCalculate()
 })
 
+document.getElementById('tests').addEventListener('click', event => {
+  const counter = document.getElementById('counter')
+  const mocha = document.getElementById('mocha')
+  const testButton = event.target
+
+  if (testButton.classList.contains('active')) {
+    testButton.textContent = 'Tests'
+    testButton.classList.remove('active')
+    counter.classList.remove('hidden')
+    counter.classList.add('active')
+    mocha.classList.remove('active')
+    mocha.classList.add('hidden')
+  }
+  else {
+    testButton.textContent = 'Go Back'
+    testButton.classList.add('active')
+    counter.classList.remove('active')
+    counter.classList.add('hidden')
+    mocha.classList.remove('hidden')
+    mocha.classList.add('active')
+  }
+})
+
 /********************
 * Exports
 *********************/
