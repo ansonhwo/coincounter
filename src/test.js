@@ -33,156 +33,162 @@ describe('Unit Tests - Coin Counter', () => {
   describe('calculate function', () => {
 
     it('Should return the smallest coin denomination distribution', () => {
-      const testData = [
-        // Default denominations (including 1)
-        {
-          denominations: [
-            {
-              amount: 0,
-              denom: 25
-            },
-            {
-              amount: 0,
-              denom: 10
-            },
-            {
-              amount: 0,
-              denom: 5
-            },
-            {
-              amount: 0,
-              denom: 1
-            }
-          ],
-          total: 39,
-          expected: [
-            {
-              amount: 1,
-              denom: 25
-            },
-            {
-              amount: 1,
-              denom: 10
-            },
-            {
-              amount: 0,
-              denom: 5
-            },
-            {
-              amount: 4,
-              denom: 1
-            }
-          ]
-        },
-        // Random denominations (including 1)
-        {
-          denominations: [
-            {
-              amount: 0,
-              denom: 20
-            },
-            {
-              amount: 0,
-              denom: 90
-            },
-            {
-              amount: 0,
-              denom: 15
-            },
-            {
-              amount: 0,
-              denom: 1
-            }
-          ],
-          total: 105,
-          expected: [
-            {
-              amount: 1,
-              denom: 90
-            },
-            {
-              amount: 0,
-              denom: 20
-            },
-            {
-              amount: 1,
-              denom: 15
-            },
-            {
-              amount: 0,
-              denom: 1
-            }
-          ]
-        },
-        // Random denominations (not including 1)
-        {
-          denominations: [
-            {
-              amount: 0,
-              denom: 2
-            },
-            {
-              amount: 0,
-              denom: 77
-            },
-            {
-              amount: 0,
-              denom: 99
-            },
-            {
-              amount: 0,
-              denom: 9
-            }
-          ],
-          total: 2,
-          expected: []
-        },
-        // Random denominations with duplicates (including 1)
-        {
-          denominations: [
-            {
-              amount: 0,
-              denom: 10
-            },
-            {
-              amount: 0,
-              denom: 10
-            },
-            {
-              amount: 0,
-              denom: 1
-            },
-            {
-              amount: 0,
-              denom: 10
-            }
-          ],
-          total: 50,
-          expected: [
-            {
-              amount: 5,
-              denom: 10
-            },
-            {
-              amount: 0,
-              denom: 10
-            },
-            {
-              amount: 0,
-              denom: 10
-            },
-            {
-              amount: 0,
-              denom: 1
-            }
-          ]
-        }
-      ]
+      const testData = {
+        denominations: [
+          {
+            amount: 0,
+            denom: 25
+          },
+          {
+            amount: 0,
+            denom: 10
+          },
+          {
+            amount: 0,
+            denom: 5
+          },
+          {
+            amount: 0,
+            denom: 1
+          }
+        ],
+        total: 39,
+        expected: [
+          {
+            amount: 1,
+            denom: 25
+          },
+          {
+            amount: 1,
+            denom: 10
+          },
+          {
+            amount: 0,
+            denom: 5
+          },
+          {
+            amount: 4,
+            denom: 1
+          }
+        ]
+      }
 
-      testData.forEach(test => {
-        let result = calculate(test)
-        expect(result).to.deep.equal(test.expected)
-      })
+      expect(calculate(testData)).to.deep.equal(testData.expected)
+    })
+
+    it('Should account for random denominations', () => {
+      const testData = {
+        denominations: [
+          {
+            amount: 0,
+            denom: 20
+          },
+          {
+            amount: 0,
+            denom: 90
+          },
+          {
+            amount: 0,
+            denom: 15
+          },
+          {
+            amount: 0,
+            denom: 1
+          }
+        ],
+        total: 105,
+        expected: [
+          {
+            amount: 1,
+            denom: 90
+          },
+          {
+            amount: 0,
+            denom: 20
+          },
+          {
+            amount: 1,
+            denom: 15
+          },
+          {
+            amount: 0,
+            denom: 1
+          }
+        ]
+      }
+
+      expect(calculate(testData)).to.deep.equal(testData.expected)
+    })
+
+    it('Should check if a 1 coin exists', () => {
+      const testData = {
+        denominations: [
+          {
+            amount: 0,
+            denom: 2
+          },
+          {
+            amount: 0,
+            denom: 77
+          },
+          {
+            amount: 0,
+            denom: 99
+          },
+          {
+            amount: 0,
+            denom: 9
+          }
+        ],
+        total: 2,
+        expected: []
+      }
+
+      expect(calculate(testData)).to.deep.equal(testData.expected)
+    })
+
+    it('Should handle duplicate denominations', () => {
+      const testData = {
+        denominations: [
+          {
+            amount: 0,
+            denom: 10
+          },
+          {
+            amount: 0,
+            denom: 10
+          },
+          {
+            amount: 0,
+            denom: 1
+          },
+          {
+            amount: 0,
+            denom: 10
+          }
+        ],
+        total: 50,
+        expected: [
+          {
+            amount: 5,
+            denom: 10
+          },
+          {
+            amount: 0,
+            denom: 10
+          },
+          {
+            amount: 0,
+            denom: 10
+          },
+          {
+            amount: 0,
+            denom: 1
+          }
+        ]
+      }
+
+      expect(calculate(testData)).to.deep.equal(testData.expected)
     })
 
   })
