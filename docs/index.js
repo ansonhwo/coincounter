@@ -121,7 +121,7 @@ describe('Unit Tests - Coin Counter', () => {
   /********************
   * Helper Functions
   *********************/
-  const CE = function(tagName, attributes, children) {
+  const CE = (tagName, attributes, children) => {
     const element = document.createElement(tagName)
 
     for (let key in attributes) {
@@ -135,6 +135,8 @@ describe('Unit Tests - Coin Counter', () => {
         ? element.appendChild(child)
         : element.appendChild(document.createTextNode(child))
     }
+
+    return element
   }
 
   /********************
@@ -301,10 +303,10 @@ describe('Unit Tests - Coin Counter', () => {
 
     it('Should return the correct coin user inputs', () => {
       const coins = [
-        CE('div', {'class': 'ui circular raised segment column'}, ['1']),
-        CE('div', {'class': 'ui circular raised segment column'}, ['2']),
-        CE('div', {'class': 'ui circular raised segment column'}, ['3']),
-        CE('div', {'class': 'ui circular raised segment column'}, ['4'])
+        CE('div', {}, ['1']),
+        CE('div', {}, ['2']),
+        CE('div', {}, ['3']),
+        CE('div', {}, ['4'])
       ]
       const formElement = new FormData()
 
@@ -349,7 +351,87 @@ describe('Unit Tests - Coin Counter', () => {
   describe('resetLabels function', () => {
 
     it('Should hide all of the notification circles', () => {
+      const labels = [
+        CE('div', {'class': 'label active'}, []),
+        CE('div', {'class': 'label active'}, []),
+        CE('div', {'class': 'label active'}, []),
+        CE('div', {'class': 'label active'}, [])
+      ]
 
+      resetLabels(labels)
+
+      let allHidden = true
+      for (let label = 0; label < labels.length; label++) {
+        if (labels[label].classList.contains('active')) allHidden = false
+      }
+
+      expect(allHidden).to.be.true
+
+    })
+
+  })
+
+  describe('updateLabels function', () => {
+
+    it('Should update all of the notification circles and toggle their visibility', () => {
+      const coins = [
+        CE('div', {}, [
+          CE('div', {'class': 'label hidden'}, [])
+        ]),
+        CE('div', {}, [
+          CE('div', {'class': 'label hidden'}, [])
+        ]),
+        CE('div', {}, [
+          CE('div', {'class': 'label hidden'}, [])
+        ]),
+        CE('div', {}, [
+          CE('div', {'class': 'label hidden'}, [])
+        ])
+      ]
+
+      const denominations = [
+        {
+          amount: 5,
+          denom: 90,
+          elem: coins[0]
+        },
+        {
+          amount: 0,
+          denom: 60,
+          elem: coins[1]
+        },
+        {
+          amount: 0,
+          denom: 40,
+          elem: coins[2]
+        },
+        {
+          amount: 4,
+          denom: 1,
+          elem: coins[3]
+        }
+      ]
+
+      updateLabels(denominations)
+
+      let amountsMatch = true
+      const visibleResult = []
+      const visibleExpected = [true, false, false, true]
+
+      denominations.forEach(coin => {
+        const label = coin.elem.querySelector('.label')
+
+        label.classList.contains('active')
+          ? visibleResult.push(true)
+          : visibleResult.push(false)
+
+        if (coin.amount) {
+          if (parseInt(label.textContent) !== coin.amount) amountsMatch = false
+        }
+      })
+
+      expect(visibleResult).to.deep.equal(visibleExpected)
+      expect(amountsMatch).to.be.true
     })
 
   })
